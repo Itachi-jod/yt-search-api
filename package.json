@@ -1,0 +1,10 @@
+{
+  "name": "yt-search-api",
+  "version": "1.0.0",
+  "description": "YouTube Search API using yt-search",
+  "main": "index.js",
+  "type": "commonjs",
+  "dependencies": {
+    "yt-search": "^2.12.1"
+  }
+}
