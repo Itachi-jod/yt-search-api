@@ -5,9 +5,10 @@ module.exports = async (req, res) => {
     const query = req.query.q;
 
     if (!query) {
-      return res.status(400).json({
+      res.setHeader("Content-Type", "application/json");
+      return res.status(400).end(JSON.stringify({
         error: "Missing ?q=search query"
-      });
+      }, null, 2)); // ← PRETTY PRINT
     }
 
     const result = await yts(query);
@@ -22,15 +23,18 @@ module.exports = async (req, res) => {
       thumbnail: v.thumbnail
     }));
 
-    return res.status(200).json({
+    res.setHeader("Content-Type", "application/json");
+    return res.status(200).end(JSON.stringify({
       success: true,
       results: videos
-    });
+    }, null, 2)); // ← PRETTY PRINT
 
   } catch (err) {
     console.error("YT API Error:", err);
-    return res.status(500).json({
+
+    res.setHeader("Content-Type", "application/json");
+    return res.status(500).end(JSON.stringify({
       error: "Internal server error"
-    });
+    }, null, 2)); // ← PRETTY PRINT
   }
 };
